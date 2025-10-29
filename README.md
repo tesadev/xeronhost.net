@@ -66,5 +66,5 @@ Die Website bietet ein elegantes Dashboard, mit dem Benutzer ihre Bots erstellen
 
 1. Lade die Projektdateien herunter oder klone das Repository:
    ```bash
-   git clone https://github.com/<dein-benutzername>/xeronhost.git
+   git clone https://github.com/tesa_dev/xeronhost.git
    cd xeronhost
