@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XeronHost - Kostenloses Discord Bot Hosting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a, .nav-links button {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover, .nav-links button:hover {
+            color: #dc2626;
+        }
+
+        .login-btn {
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(22, 163, 74, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: pulse 4s ease-in-out infinite 2s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .free-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            color: #9ca3af;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            padding: 6rem 5% 2rem;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .stat-card h3 {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .servers-section {
+            margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            color: #dc2626;
+        }
+
+        .server-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .server-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(22, 163, 74, 0.5);
+        }
+
+        .server-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .server-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-online {
+            background: rgba(22, 163, 74, 0.2);
+            color: #16a34a;
+            border: 1px solid #16a34a;
+        }
+
+        .status-offline {
+            background: rgba(220, 38, 38, 0.2);
+            color: #dc2626;
+            border: 1px solid #dc2626;
+        }
+
+        .server-info {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .server-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: rgba(220, 38, 38, 0.2);
+            color: #dc2626;
+            border: 1px solid #dc2626;
+        }
+
+        .btn-danger {
+            background: rgba(220, 38, 38, 0.3);
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid rgba(220, 38, 38, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #dc2626;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        .form-group input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-group input:not(:disabled):focus {
+            border-color: #16a34a;
+        }
+
+        .boost-lock {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .boost-lock p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .boost-count {
+            color: #16a34a;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">XeronHost</div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showHome()">Home</a></li>
+            <li><a href="#" onclick="showDashboard()" id="dashboardLink" class="hidden">Dashboard</a></li>
+            <li><button onclick="toggleAuth()" class="login-btn" id="authBtn">Login</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="heroSection">
+        <div class="hero-content">
+            <div class="free-badge">💯 100% KOSTENLOS</div>
+            <h1>Discord Bot Hosting</h1>
+            <p>Hoste deinen Discord Bot komplett kostenlos. Kein Haken, keine versteckten Kosten.</p>
+            <button class="btn btn-primary" onclick="toggleAuth()" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px;">Jetzt starten</button>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboardSection">
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <div class="avatar">👤</div>
+                <div>
+                    <div style="font-weight: bold;" id="userName">User#1234</div>
+                    <div style="font-size: 0.8rem; color: #9ca3af;">Discord Boosts: <span id="boostCount">0</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>AKTIVE BOTS</h3>
+                <div class="stat-value" id="activeBots">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>GESAMTE BOTS</h3>
+                <div class="stat-value" id="totalBots">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>CPU USAGE</h3>
+                <div class="stat-value">12%</div>
+            </div>
+            <div class="stat-card">
+                <h3>RAM USAGE</h3>
+                <div class="stat-value">1.2GB</div>
+            </div>
+        </div>
+
+        <div class="servers-section">
+            <div class="section-header">
+                <h2>Deine Bots</h2>
+                <button class="btn btn-primary" onclick="openCreateModal()">+ Neuen Bot erstellen</button>
+            </div>
+            <div class="server-grid" id="serverGrid">
+                <!-- Server werden hier dynamisch eingefügt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Server Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeCreateModal()">&times;</button>
+            <h2 style="color: #dc2626; margin-bottom: 1.5rem;">Neuen Bot erstellen</h2>
+            
+            <form id="createBotForm" onsubmit="createServer(event)">
+                <div class="form-group">
+                    <label>Bot Name *</label>
+                    <input type="text" id="botName" name="botName" placeholder="Mein Discord Bot" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Bot Token *</label>
+                    <input type="password" id="botToken" name="botToken" placeholder="Dein Discord Bot Token" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Programmiersprache *</label>
+                    <select id="botLanguage" name="botLanguage" required>
+                        <option value="nodejs">Node.js</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🔒 CPU Cores (erfordert Boosts)</label>
+                    <input type="number" id="cpuCores" name="cpuCores" value="2" min="2" max="8" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>🔒 RAM (GB) (erfordert Boosts)</label>
+                    <input type="number" id="ramSize" name="ramSize" value="2" min="2" max="16" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>🔒 Speicher (GB) (erfordert Boosts)</label>
+                    <input type="number" id="storageSize" name="storageSize" value="10" min="10" max="100" disabled>
+                </div>
+
+                <div class="boost-lock">
+                    <p>Um erweiterte Einstellungen zu ändern:</p>
+                    <p class="boost-count">Mindestens 2 Discord Boosts erforderlich</p>
+                    <button type="button" class="btn btn-primary" onclick="window.open('https://discord.gg/xeronhost', '_blank')" style="margin-top: 0.5rem;">Discord Server beitreten</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem; cursor: pointer;">Bot erstellen</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Server Management Modal -->
+    <div class="modal" id="manageModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeManageModal()">&times;</button>
+            <h2 style="color: #dc2626; margin-bottom: 1.5rem;">Bot verwalten</h2>
+            
+            <div class="form-group">
+                <label>Bot Name</label>
+                <input type="text" id="manageBotName" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <input type="text" id="manageBotStatus" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Uptime</label>
+                <input type="text" id="manageBotUptime" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>CPU Usage</label>
+                <input type="text" value="12%" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>RAM Usage</label>
+                <input type="text" value="1.2GB / 2GB" disabled>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <h3 style="color: #dc2626; margin-bottom: 1rem;">Logs</h3>
+                <div style="background: rgba(10, 10, 10, 0.8); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; max-height: 200px; overflow-y: auto; color: #16a34a;">
+                    [2025-10-30 12:34:56] Bot started successfully<br>
+                    [2025-10-30 12:35:01] Connected to Discord<br>
+                    [2025-10-30 12:35:02] Ready! Logged in as TestBot#1234<br>
+                    [2025-10-30 12:36:15] Command executed: /help
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLoggedIn = false;
+        let servers = [];
+        let currentManageServerId = null;
+
+        // Auth Toggle
+        function toggleAuth() {
+            if (!isLoggedIn) {
+                login();
+            } else {
+                logout();
+            }
+        }
+
+        function login() {
+            isLoggedIn = true;
+            document.getElementById('authBtn').textContent = 'Logout';
+            document.getElementById('dashboardLink').classList.remove('hidden');
+            showDashboard();
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            servers = [];
+            document.getElementById('authBtn').textContent = 'Login';
+            document.getElementById('dashboardLink').classList.add('hidden');
+            showHome();
+        }
+
+        function showHome() {
+            document.getElementById('heroSection').style.display = 'flex';
+            document.getElementById('dashboardSection').classList.remove('active');
+        }
+
+        function showDashboard() {
+            if (!isLoggedIn) {
+                login();
+                return;
+            }
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('dashboardSection').classList.add('active');
+            updateStats();
+            renderServers();
+        }
+
+        // Modal Functions
+        function openCreateModal() {
+            document.getElementById('createModal').classList.add('active');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.remove('active');
+        }
+
+        function openManageModal(serverId) {
+            currentManageServerId = serverId;
+            const server = servers.find(s => s.id === serverId);
+            if (server) {
+                document.getElementById('manageBotName').value = server.name;
+                document.getElementById('manageBotStatus').value = server.status;
+                document.getElementById('manageBotUptime').value = server.uptime;
+                document.getElementById('manageModal').classList.add('active');
+            }
+        }
+
+        function closeManageModal() {
+            document.getElementById('manageModal').classList.remove('active');
+        }
+
+        // Server Management
+        function createServer(event) {
+            event.preventDefault();
+            console.log('Form submitted!');
+            
+            const botName = document.getElementById('botName').value.trim();
+            const botToken = document.getElementById('botToken').value.trim();
+            const botLanguage = document.getElementById('botLanguage').value;
+            
+            console.log('Bot Name:', botName);
+            console.log('Bot Token:', botToken ? '***' : 'empty');
+            console.log('Bot Language:', botLanguage);
+            
+            if (!botName || !botToken) {
+                alert('Bitte fülle alle Pflichtfelder aus!');
+                return false;
+            }
+            
+            const newServer = {
+                id: Date.now(),
+                name: botName,
+                language: botLanguage === 'nodejs' ? 'Node.js' : botLanguage === 'python' ? 'Python' : 'Java',
+                status: 'Online',
+                uptime: '0m',
+                cpu: Math.floor(Math.random() * 30) + 5,
+                ram: (Math.random() * 1.5 + 0.5).toFixed(1)
+            };
+            
+            servers.push(newServer);
+            console.log('Server added:', newServer);
+            console.log('Total servers:', servers.length);
+            
+            // Reset form
+            document.getElementById('createBotForm').reset();
+            
+            closeCreateModal();
+            renderServers();
+            updateStats();
+            
+            alert('✅ Bot "' + botName + '" erfolgreich erstellt!');
+            
+            return false;
+        }
+
+        function startServer(id) {
+            const server = servers.find(s => s.id === id);
+            if (server) {
+                server.status = 'Online';
+                renderServers();
+                updateStats();
+            }
+        }
+
+        function stopServer(id) {
+            const server = servers.find(s => s.id === id);
+            if (server) {
+                server.status = 'Offline';
+                renderServers();
+                updateStats();
+            }
+        }
+
+        function restartServer(id) {
+            stopServer(id);
+            setTimeout(() => startServer(id), 1000);
+        }
+
+        function deleteServer(id) {
+            if (confirm('Möchtest du diesen Bot wirklich löschen?')) {
+                servers = servers.filter(s => s.id !== id);
+                renderServers();
+                updateStats();
+            }
+        }
+
+        function renderServers() {
+            const grid = document.getElementById('serverGrid');
+            
+            if (servers.length === 0) {
+                grid.innerHTML = '<p style="color: #9ca3af; text-align: center; grid-column: 1/-1;">Noch keine Bots erstellt. Erstelle deinen ersten Bot!</p>';
+                return;
+            }
+            
+            grid.innerHTML = servers.map(server => `
+                <div class="server-card">
+                    <div class="server-header">
+                        <div class="server-name">${server.name}</div>
+                        <span class="status-badge ${server.status === 'Online' ? 'status-online' : 'status-offline'}">
+                            ${server.status}
+                        </span>
+                    </div>
+                    <div class="server-info">Sprache: ${server.language}</div>
+                    <div class="server-info">CPU: ${server.cpu}% | RAM: ${server.ram}GB</div>
+                    <div class="server-info">Uptime: ${server.uptime}</div>
+                    <div class="server-actions">
+                        ${server.status === 'Online' 
+                            ? `<button class="btn btn-secondary" onclick="stopServer(${server.id})">Stop</button>`
+                            : `<button class="btn btn-primary" onclick="startServer(${server.id})">Start</button>`
+                        }
+                        <button class="btn btn-secondary" onclick="restartServer(${server.id})">Restart</button>
+                        <button class="btn btn-secondary" onclick="openManageModal(${server.id})">Logs</button>
+                        <button class="btn btn-danger" onclick="deleteServer(${server.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            const active = servers.filter(s => s.status === 'Online').length;
+            document.getElementById('activeBots').textContent = active;
+            document.getElementById('totalBots').textContent = servers.length;
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
