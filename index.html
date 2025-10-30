@@ -39,6 +39,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -68,6 +69,15 @@
             background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
             border-radius: 25px;
             font-weight: 600;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
         }
 
         /* Hero Section */
@@ -141,15 +151,168 @@
             color: #9ca3af;
         }
 
-        /* Dashboard */
-        .dashboard {
-            display: none;
-            min-height: 100vh;
-            padding: 6rem 5% 2rem;
+        /* Features Section */
+        .features {
+            padding: 5rem 5%;
+            background: rgba(15, 15, 15, 0.5);
         }
 
-        .dashboard.active {
-            display: block;
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            transition: transform 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(22, 163, 74, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 5%;
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-subtitle {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(22, 163, 74, 0.5);
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(22, 163, 74, 0.5);
+            box-shadow: 0 10px 50px rgba(22, 163, 74, 0.2);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pricing-card h3 {
+            color: #dc2626;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .period {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+            color: #9ca3af;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: #16a34a;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Dashboard Page */
+        .dashboard-page {
+            min-height: 100vh;
+            padding: 6rem 5% 2rem;
+            background: #0a0a0a;
         }
 
         .dashboard-header {
@@ -199,6 +362,11 @@
             padding: 1.5rem;
             border-radius: 15px;
             border: 1px solid rgba(220, 38, 38, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
         .stat-card h3 {
@@ -225,10 +393,43 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .section-header h2 {
             color: #dc2626;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: 0.6rem 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            min-width: 200px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #16a34a;
+        }
+
+        .filter-select {
+            padding: 0.6rem 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .server-grid {
@@ -242,12 +443,13 @@
             padding: 1.5rem;
             border-radius: 15px;
             border: 1px solid rgba(220, 38, 38, 0.3);
-            transition: transform 0.3s, border-color 0.3s;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
         }
 
         .server-card:hover {
             transform: translateY(-5px);
             border-color: rgba(22, 163, 74, 0.5);
+            box-shadow: 0 10px 30px rgba(22, 163, 74, 0.2);
         }
 
         .server-header {
@@ -268,6 +470,17 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
         .status-online {
@@ -276,10 +489,24 @@
             border: 1px solid #16a34a;
         }
 
+        .status-online::before {
+            background: #16a34a;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
         .status-offline {
             background: rgba(220, 38, 38, 0.2);
             color: #dc2626;
             border: 1px solid #dc2626;
+        }
+
+        .status-offline::before {
+            background: #dc2626;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .server-info {
@@ -292,6 +519,7 @@
             display: flex;
             gap: 0.5rem;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -313,6 +541,10 @@
             color: #fff;
         }
 
+        .btn-primary:hover {
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+        }
+
         .btn-secondary {
             background: rgba(220, 38, 38, 0.2);
             color: #dc2626;
@@ -322,6 +554,165 @@
         .btn-danger {
             background: rgba(220, 38, 38, 0.3);
             color: #fff;
+        }
+
+        /* File Manager */
+        .file-manager {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .file-manager-header {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-manager-header h3 {
+            color: #dc2626;
+        }
+
+        .file-breadcrumb {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .file-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .file-list {
+            padding: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .file-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .file-list::-webkit-scrollbar-track {
+            background: rgba(30, 30, 30, 0.5);
+        }
+
+        .file-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+            border-radius: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(30, 30, 30, 0.5);
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .file-item:hover {
+            background: rgba(40, 40, 40, 0.8);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+        }
+
+        .file-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-name {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .file-meta {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.3rem;
+            transition: color 0.3s;
+        }
+
+        .icon-btn:hover {
+            color: #dc2626;
+        }
+
+        /* Code Editor */
+        .code-editor {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .editor-header {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-title {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .editor-content {
+            padding: 1rem;
+        }
+
+        .editor-textarea {
+            width: 100%;
+            min-height: 400px;
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 5px;
+            color: #16a34a;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            padding: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        .editor-textarea:focus {
+            outline: none;
+            border-color: #16a34a;
         }
 
         /* Modal */
@@ -352,6 +743,10 @@
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
+        }
+
+        .modal-content.large {
+            max-width: 1200px;
         }
 
         .modal-content::-webkit-scrollbar {
@@ -457,69 +852,183 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
+            .file-toolbar {
+                width: 100%;
+            }
+
+            .file-toolbar .btn {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="logo">XeronHost</div>
+        <div class="logo" onclick="showHome()">XeronHost</div>
         <ul class="nav-links">
             <li><a href="#" onclick="showHome()">Home</a></li>
+            <li><a href="#features" onclick="scrollToSection('features')">Features</a></li>
+            <li><a href="#pricing" onclick="scrollToSection('pricing')">Pricing</a></li>
             <li><a href="#" onclick="showDashboard()" id="dashboardLink" class="hidden">Dashboard</a></li>
             <li><button onclick="toggleAuth()" class="login-btn" id="authBtn">Login</button></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="heroSection">
-        <div class="hero-content">
-            <div class="free-badge">💯 100% KOSTENLOS</div>
-            <h1>Discord Bot Hosting</h1>
-            <p>Hoste deinen Discord Bot komplett kostenlos. Kein Haken, keine versteckten Kosten.</p>
-            <button class="btn btn-primary" onclick="toggleAuth()" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px;">Jetzt starten</button>
-        </div>
-    </section>
+    <!-- Home Page -->
+    <div class="page active" id="homePage">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="free-badge">💯 100% KOSTENLOS</div>
+                <h1>Discord Bot Hosting</h1>
+                <p>Hoste deinen Discord Bot komplett kostenlos. Kein Haken, keine versteckten Kosten.</p>
+                <button class="btn btn-primary" onclick="toggleAuth()" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px;">Jetzt starten</button>
+            </div>
+        </section>
 
-    <!-- Dashboard -->
-    <div class="dashboard" id="dashboardSection">
-        <div class="dashboard-header">
-            <h1>Dashboard</h1>
-            <div class="user-info">
-                <div class="avatar">👤</div>
-                <div>
-                    <div style="font-weight: bold;" id="userName">User#1234</div>
-                    <div style="font-size: 0.8rem; color: #9ca3af;">Discord Boosts: <span id="boostCount">0</span></div>
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <h2>Unsere Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Schnelles Deployment</h3>
+                    <p>Erstelle und deploye deinen Bot in unter 60 Sekunden. Keine komplizierte Konfiguration nötig.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h3>Starke Performance</h3>
+                    <p>2 CPU Cores und 2GB RAM standardmäßig. Upgrade verfügbar für Power-User.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Sicher</h3>
+                    <p>Deine Bot-Token sind verschlüsselt und sicher gespeichert. Wir haben keinen Zugriff darauf.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Live Monitoring</h3>
+                    <p>Überwache CPU, RAM und Uptime deines Bots in Echtzeit mit unserem Dashboard.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Multi-Language</h3>
+                    <p>Unterstützung für Node.js, Python und Java. Nutze deine Lieblingssprache.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>99.9% Uptime</h3>
+                    <p>Automatisches Restart bei Crashes. Dein Bot läuft immer stabil und zuverlässig.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>AKTIVE BOTS</h3>
-                <div class="stat-value" id="activeBots">0</div>
+        <!-- Pricing Section -->
+        <section class="pricing" id="pricing">
+            <h2>100% Kostenlos</h2>
+            <p class="pricing-subtitle">Keine versteckten Kosten. Nur reines, kostenloses Discord Bot Hosting.</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free Plan</h3>
+                    <div class="price">0€</div>
+                    <div class="period">für immer</div>
+                    <ul class="pricing-features">
+                        <li>2 CPU Cores</li>
+                        <li>2GB RAM</li>
+                        <li>10GB Speicher</li>
+                        <li>Unbegrenzte Bots</li>
+                        <li>99.9% Uptime</li>
+                        <li>Discord Support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="toggleAuth()" style="width: 100%;">Jetzt starten</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="popular-badge">⭐ BELIEBT</div>
+                    <h3>Boost Plan</h3>
+                    <div class="price">0€</div>
+                    <div class="period">mit 2+ Server Boosts</div>
+                    <ul class="pricing-features">
+                        <li>Bis zu 8 CPU Cores</li>
+                        <li>Bis zu 16GB RAM</li>
+                        <li>Bis zu 100GB Speicher</li>
+                        <li>Unbegrenzte Bots</li>
+                        <li>99.9% Uptime</li>
+                        <li>Priority Support</li>
+                        <li>Custom Domain</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="window.open('https://discord.gg/xeronhost', '_blank')" style="width: 100%;">Server boosten</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Community</h3>
+                    <div class="price">0€</div>
+                    <div class="period">kostenlos beitreten</div>
+                    <ul class="pricing-features">
+                        <li>24/7 Community Support</li>
+                        <li>Tutorials & Guides</li>
+                        <li>Bot Templates</li>
+                        <li>Entwickler Community</li>
+                        <li>Regelmäßige Updates</li>
+                        <li>Giveaways & Events</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="window.open('https://discord.gg/xeronhost', '_blank')" style="width: 100%;">Discord beitreten</button>
+                </div>
             </div>
-            <div class="stat-card">
-                <h3>GESAMTE BOTS</h3>
-                <div class="stat-value" id="totalBots">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>CPU USAGE</h3>
-                <div class="stat-value">12%</div>
-            </div>
-            <div class="stat-card">
-                <h3>RAM USAGE</h3>
-                <div class="stat-value">1.2GB</div>
-            </div>
-        </div>
+        </section>
+    </div>
 
-        <div class="servers-section">
-            <div class="section-header">
-                <h2>Deine Bots</h2>
-                <button class="btn btn-primary" onclick="openCreateModal()">+ Neuen Bot erstellen</button>
+    <!-- Dashboard Page -->
+    <div class="page" id="dashboardPage">
+        <div class="dashboard-page">
+            <div class="dashboard-header">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <div class="avatar">👤</div>
+                    <div>
+                        <div style="font-weight: bold;" id="userName">User#1234</div>
+                        <div style="font-size: 0.8rem; color: #9ca3af;">Discord Boosts: <span id="boostCount">0</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="server-grid" id="serverGrid">
-                <!-- Server werden hier dynamisch eingefügt -->
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>AKTIVE BOTS</h3>
+                    <div class="stat-value" id="activeBots">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>GESAMTE BOTS</h3>
+                    <div class="stat-value" id="totalBots">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>CPU USAGE</h3>
+                    <div class="stat-value">12%</div>
+                </div>
+                <div class="stat-card">
+                    <h3>RAM USAGE</h3>
+                    <div class="stat-value">1.2GB</div>
+                </div>
+            </div>
+
+            <div class="servers-section">
+                <div class="section-header">
+                    <h2>Deine Bots</h2>
+                    <div class="search-filter">
+                        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Bot suchen..." oninput="filterServers()">
+                        <select class="filter-select" id="statusFilter" onchange="filterServers()">
+                            <option value="all">Alle Status</option>
+                            <option value="online">Online</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="openCreateModal()">+ Neuen Bot erstellen</button>
+                    </div>
+                </div>
+                <div class="server-grid" id="serverGrid">
+                    <!-- Server werden hier dynamisch eingefügt -->
+                </div>
             </div>
         </div>
     </div>
@@ -578,7 +1087,7 @@
 
     <!-- Server Management Modal -->
     <div class="modal" id="manageModal">
-        <div class="modal-content">
+        <div class="modal-content large">
             <button class="close-btn" onclick="closeManageModal()">&times;</button>
             <h2 style="color: #dc2626; margin-bottom: 1.5rem;">Bot verwalten</h2>
             
@@ -607,8 +1116,26 @@
                 <input type="text" value="1.2GB / 2GB" disabled>
             </div>
 
+            <!-- File Manager -->
+            <div class="file-manager">
+                <div class="file-manager-header">
+                    <div>
+                        <h3>Datei Manager</h3>
+                        <div class="file-breadcrumb" id="fileBreadcrumb">/</div>
+                    </div>
+                    <div class="file-toolbar">
+                        <button class="btn btn-secondary" onclick="createNewFile()">📄 Neue Datei</button>
+                        <button class="btn btn-secondary" onclick="createNewFolder()">📁 Neuer Ordner</button>
+                        <button class="btn btn-secondary" onclick="uploadFile()">⬆️ Upload</button>
+                    </div>
+                </div>
+                <div class="file-list" id="fileList">
+                    <!-- Files werden hier dynamisch eingefügt -->
+                </div>
+            </div>
+
             <div style="margin-top: 1.5rem;">
-                <h3 style="color: #dc2626; margin-bottom: 1rem;">Logs</h3>
+                <h3 style="color: #dc2626; margin-bottom: 1rem;">Live Logs</h3>
                 <div style="background: rgba(10, 10, 10, 0.8); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; max-height: 200px; overflow-y: auto; color: #16a34a;">
                     [2025-10-30 12:34:56] Bot started successfully<br>
                     [2025-10-30 12:35:01] Connected to Discord<br>
@@ -619,10 +1146,131 @@
         </div>
     </div>
 
+    <!-- File Editor Modal -->
+    <div class="modal" id="editorModal">
+        <div class="modal-content large">
+            <button class="close-btn" onclick="closeEditorModal()">&times;</button>
+            <h2 style="color: #dc2626; margin-bottom: 1.5rem;">Datei bearbeiten</h2>
+            
+            <div class="code-editor">
+                <div class="editor-header">
+                    <span class="editor-title" id="editorFileName">index.js</span>
+                    <button class="btn btn-primary" onclick="saveFile()">💾 Speichern</button>
+                </div>
+                <div class="editor-content">
+                    <textarea class="editor-textarea" id="codeEditor" placeholder="// Dein Code hier..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let isLoggedIn = false;
         let servers = [];
         let currentManageServerId = null;
+        let currentPath = '/';
+        let currentEditFile = null;
+        
+        // File system structure
+        let fileSystem = {
+            '/': {
+                'index.js': {
+                    type: 'file',
+                    content: `const Discord = require('discord.js');
+const client = new Discord.Client({ intents: ['Guilds', 'GuildMessages'] });
+
+client.on('ready', () => {
+    console.log(\`Logged in as \${client.user.tag}!\`);
+});
+
+client.on('messageCreate', message => {
+    if (message.content === '!ping') {
+        message.reply('Pong!');
+    }
+});
+
+client.login(process.env.TOKEN);`,
+                    size: '1.2 KB',
+                    modified: '2025-10-30 12:00'
+                },
+                'package.json': {
+                    type: 'file',
+                    content: `{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  }
+}`,
+                    size: '0.3 KB',
+                    modified: '2025-10-30 11:45'
+                },
+                'config.json': {
+                    type: 'file',
+                    content: `{
+  "prefix": "!",
+  "color": "#dc2626"
+}`,
+                    size: '0.1 KB',
+                    modified: '2025-10-30 11:30'
+                },
+                'commands': {
+                    type: 'folder',
+                    files: {
+                        'ping.js': {
+                            type: 'file',
+                            content: `module.exports = {
+    name: 'ping',
+    description: 'Ping command',
+    execute(message) {
+        message.reply('Pong!');
+    }
+};`,
+                            size: '0.2 KB',
+                            modified: '2025-10-30 10:00'
+                        }
+                    }
+                },
+                'events': {
+                    type: 'folder',
+                    files: {}
+                }
+            }
+        };
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            showPage('homePage');
+        }
+
+        function showDashboard() {
+            if (!isLoggedIn) {
+                login();
+                return;
+            }
+            showPage('dashboardPage');
+            updateStats();
+            renderServers();
+        }
+
+        function scrollToSection(sectionId) {
+            showHome();
+            setTimeout(() => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
 
         // Auth Toggle
         function toggleAuth() {
@@ -648,22 +1296,6 @@
             showHome();
         }
 
-        function showHome() {
-            document.getElementById('heroSection').style.display = 'flex';
-            document.getElementById('dashboardSection').classList.remove('active');
-        }
-
-        function showDashboard() {
-            if (!isLoggedIn) {
-                login();
-                return;
-            }
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('dashboardSection').classList.add('active');
-            updateStats();
-            renderServers();
-        }
-
         // Modal Functions
         function openCreateModal() {
             document.getElementById('createModal').classList.add('active');
@@ -681,6 +1313,10 @@
                 document.getElementById('manageBotStatus').value = server.status;
                 document.getElementById('manageBotUptime').value = server.uptime;
                 document.getElementById('manageModal').classList.add('active');
+                
+                // Reset to root and render files
+                currentPath = '/';
+                renderFileList();
             }
         }
 
@@ -688,18 +1324,247 @@
             document.getElementById('manageModal').classList.remove('active');
         }
 
+        function openEditorModal(fileName, content) {
+            currentEditFile = fileName;
+            document.getElementById('editorFileName').textContent = fileName;
+            document.getElementById('codeEditor').value = content;
+            document.getElementById('editorModal').classList.add('active');
+        }
+
+        function closeEditorModal() {
+            document.getElementById('editorModal').classList.remove('active');
+        }
+
+        // File Manager Functions
+        function renderFileList() {
+            const fileListEl = document.getElementById('fileList');
+            const breadcrumbEl = document.getElementById('fileBreadcrumb');
+            
+            breadcrumbEl.textContent = currentPath;
+            
+            let currentDir = getDirectoryAtPath(currentPath);
+            
+            if (!currentDir) {
+                fileListEl.innerHTML = '<p style="color: #9ca3af; text-align: center; padding: 2rem;">Ordner nicht gefunden</p>';
+                return;
+            }
+            
+            let html = '';
+            
+            // Back button if not in root
+            if (currentPath !== '/') {
+                html += `
+                    <div class="file-item" onclick="navigateBack()">
+                        <div class="file-info">
+                            <div class="file-icon">⬅️</div>
+                            <div class="file-details">
+                                <div class="file-name">..</div>
+                                <div class="file-meta">Zurück</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // List folders first
+            for (let [name, item] of Object.entries(currentDir)) {
+                if (item.type === 'folder') {
+                    html += `
+                        <div class="file-item" onclick="navigateToFolder('${name}')">
+                            <div class="file-info">
+                                <div class="file-icon">📁</div>
+                                <div class="file-details">
+                                    <div class="file-name">${name}</div>
+                                    <div class="file-meta">Ordner</div>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="icon-btn" onclick="event.stopPropagation(); deleteFileOrFolder('${name}')" title="Löschen">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Then list files
+            for (let [name, item] of Object.entries(currentDir)) {
+                if (item.type === 'file') {
+                    html += `
+                        <div class="file-item" onclick="openFile('${name}')">
+                            <div class="file-info">
+                                <div class="file-icon">${getFileIcon(name)}</div>
+                                <div class="file-details">
+                                    <div class="file-name">${name}</div>
+                                    <div class="file-meta">${item.size} • ${item.modified}</div>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="icon-btn" onclick="event.stopPropagation(); openFile('${name}')" title="Bearbeiten">✏️</button>
+                                <button class="icon-btn" onclick="event.stopPropagation(); downloadFile('${name}')" title="Download">⬇️</button>
+                                <button class="icon-btn" onclick="event.stopPropagation(); deleteFileOrFolder('${name}')" title="Löschen">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            if (html === '' && currentPath === '/') {
+                html = '<p style="color: #9ca3af; text-align: center; padding: 2rem;">Keine Dateien vorhanden. Erstelle deine erste Datei!</p>';
+            }
+            
+            fileListEl.innerHTML = html;
+        }
+
+        function getDirectoryAtPath(path) {
+            if (path === '/') return fileSystem['/'];
+            
+            let parts = path.split('/').filter(p => p);
+            let current = fileSystem['/'];
+            
+            for (let part of parts) {
+                if (current[part] && current[part].type === 'folder') {
+                    current = current[part].files;
+                } else {
+                    return null;
+                }
+            }
+            
+            return current;
+        }
+
+        function getFileIcon(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            const icons = {
+                'js': '📜',
+                'json': '📋',
+                'txt': '📄',
+                'md': '📝',
+                'py': '🐍',
+                'java': '☕',
+                'html': '🌐',
+                'css': '🎨',
+                'png': '🖼️',
+                'jpg': '🖼️',
+                'gif': '🖼️'
+            };
+            return icons[ext] || '📄';
+        }
+
+        function navigateToFolder(folderName) {
+            if (currentPath === '/') {
+                currentPath = '/' + folderName;
+            } else {
+                currentPath = currentPath + '/' + folderName;
+            }
+            renderFileList();
+        }
+
+        function navigateBack() {
+            if (currentPath === '/') return;
+            
+            let parts = currentPath.split('/').filter(p => p);
+            parts.pop();
+            currentPath = parts.length === 0 ? '/' : '/' + parts.join('/');
+            renderFileList();
+        }
+
+        function openFile(fileName) {
+            let dir = getDirectoryAtPath(currentPath);
+            if (dir && dir[fileName] && dir[fileName].type === 'file') {
+                openEditorModal(fileName, dir[fileName].content);
+            }
+        }
+
+        function saveFile() {
+            if (!currentEditFile) return;
+            
+            let dir = getDirectoryAtPath(currentPath);
+            if (dir && dir[currentEditFile]) {
+                dir[currentEditFile].content = document.getElementById('codeEditor').value;
+                dir[currentEditFile].modified = new Date().toISOString().slice(0, 16).replace('T', ' ');
+                alert('✅ Datei gespeichert!');
+                renderFileList();
+            }
+        }
+
+        function createNewFile() {
+            let fileName = prompt('Dateiname eingeben:', 'new-file.js');
+            if (!fileName) return;
+            
+            let dir = getDirectoryAtPath(currentPath);
+            if (dir) {
+                if (dir[fileName]) {
+                    alert('❌ Datei existiert bereits!');
+                    return;
+                }
+                
+                dir[fileName] = {
+                    type: 'file',
+                    content: '// Neue Datei\n',
+                    size: '0.1 KB',
+                    modified: new Date().toISOString().slice(0, 16).replace('T', ' ')
+                };
+                renderFileList();
+                alert('✅ Datei "' + fileName + '" erstellt!');
+            }
+        }
+
+        function createNewFolder() {
+            let folderName = prompt('Ordnername eingeben:', 'new-folder');
+            if (!folderName) return;
+            
+            let dir = getDirectoryAtPath(currentPath);
+            if (dir) {
+                if (dir[folderName]) {
+                    alert('❌ Ordner existiert bereits!');
+                    return;
+                }
+                
+                dir[folderName] = {
+                    type: 'folder',
+                    files: {}
+                };
+                renderFileList();
+                alert('✅ Ordner "' + folderName + '" erstellt!');
+            }
+        }
+
+        function uploadFile() {
+            alert('📤 Upload-Funktion: In einer echten Anwendung würde hier ein Datei-Upload-Dialog erscheinen.');
+        }
+
+        function downloadFile(fileName) {
+            let dir = getDirectoryAtPath(currentPath);
+            if (dir && dir[fileName] && dir[fileName].type === 'file') {
+                const content = dir[fileName].content;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        function deleteFileOrFolder(name) {
+            if (!confirm('Möchtest du "' + name + '" wirklich löschen?')) return;
+            
+            let dir = getDirectoryAtPath(currentPath);
+            if (dir && dir[name]) {
+                delete dir[name];
+                renderFileList();
+                alert('✅ "' + name + '" gelöscht!');
+            }
+        }
+
         // Server Management
         function createServer(event) {
             event.preventDefault();
-            console.log('Form submitted!');
             
             const botName = document.getElementById('botName').value.trim();
             const botToken = document.getElementById('botToken').value.trim();
             const botLanguage = document.getElementById('botLanguage').value;
-            
-            console.log('Bot Name:', botName);
-            console.log('Bot Token:', botToken ? '***' : 'empty');
-            console.log('Bot Language:', botLanguage);
             
             if (!botName || !botToken) {
                 alert('Bitte fülle alle Pflichtfelder aus!');
@@ -717,12 +1582,8 @@
             };
             
             servers.push(newServer);
-            console.log('Server added:', newServer);
-            console.log('Total servers:', servers.length);
             
-            // Reset form
             document.getElementById('createBotForm').reset();
-            
             closeCreateModal();
             renderServers();
             updateStats();
@@ -763,15 +1624,29 @@
             }
         }
 
-        function renderServers() {
-            const grid = document.getElementById('serverGrid');
+        function filterServers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
             
-            if (servers.length === 0) {
+            const filtered = servers.filter(server => {
+                const matchesSearch = server.name.toLowerCase().includes(searchTerm);
+                const matchesStatus = statusFilter === 'all' || server.status.toLowerCase() === statusFilter;
+                return matchesSearch && matchesStatus;
+            });
+            
+            renderServers(filtered);
+        }
+
+        function renderServers(serversToRender = null) {
+            const grid = document.getElementById('serverGrid');
+            const serverList = serversToRender || servers;
+            
+            if (serverList.length === 0) {
                 grid.innerHTML = '<p style="color: #9ca3af; text-align: center; grid-column: 1/-1;">Noch keine Bots erstellt. Erstelle deinen ersten Bot!</p>';
                 return;
             }
             
-            grid.innerHTML = servers.map(server => `
+            grid.innerHTML = serverList.map(server => `
                 <div class="server-card">
                     <div class="server-header">
                         <div class="server-name">${server.name}</div>
@@ -788,7 +1663,7 @@
                             : `<button class="btn btn-primary" onclick="startServer(${server.id})">Start</button>`
                         }
                         <button class="btn btn-secondary" onclick="restartServer(${server.id})">Restart</button>
-                        <button class="btn btn-secondary" onclick="openManageModal(${server.id})">Logs</button>
+                        <button class="btn btn-secondary" onclick="openManageModal(${server.id})">Verwalten</button>
                         <button class="btn btn-danger" onclick="deleteServer(${server.id})">Delete</button>
                     </div>
                 </div>
